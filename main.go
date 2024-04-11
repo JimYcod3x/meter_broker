@@ -39,6 +39,12 @@ func (h *hooks) OnPacketRead(cl *mqtt.Client, pk packets.Packet) (packets.Packet
 	// 	cl.ID = []byte("new_id")
 	// }
 
+	if pk.Connect.Username == nil {
+		pk.Connect.UsernameFlag = false
+	}
+	if pk.Connect.Password == nil {
+		pk.Connect.PasswordFlag = false
+	}
 	fmt.Printf("username: %v\n password: %v\n",	 pk.Connect.Username, pk.Connect.Password)
 	return pk, nil
 }
