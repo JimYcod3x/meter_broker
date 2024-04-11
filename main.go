@@ -33,8 +33,8 @@ func (h *hooks) OnPacketRead(cl *mqtt.Client, pk packets.Packet) (packets.Packet
 		return pk, errTestHook
 	}
 	fmt.Printf("client Properties : %v\n client Net : %v\n client ID : %v\n", cl.Properties, cl.Net, cl.ID)
-	fmt.Printf("Packet fields - Connect: %v, Properties: %v, Payload: %v, ReasonCodes: %v, Filters: %v, TopicName: %v, Origin: %v, FixedHeader: %v, Created: %v, Expiry: %v, Mods: %v, PacketID: %v, ProtocolVersion: %v, SessionPresent: %v, ReasonCode: %v, ReservedBit: %v, Ignore: %v\n",
-		pk.Connect, pk.Properties, pk.Payload, pk.ReasonCodes, pk.Filters, pk.TopicName, pk.Origin, pk.FixedHeader, pk.Created, pk.Expiry, pk.Mods, pk.PacketID, pk.ProtocolVersion, pk.SessionPresent, pk.ReasonCode, pk.ReservedBit, pk.Ignore)
+	fmt.Printf("Packet fields - Connect: %v\n, Properties: %v\n, Payload: %v\n, ReasonCodes: %v\n, Filters: %v\n, TopicName: %v\n, Origin: %v\n, FixedHeader: %v\n, Created: %v\n, Expiry: %v\n, Mods: %v\n, PacketID: %v\n, ProtocolVersion: %v\n, SessionPresent: %v\n, ReasonCode: %v\n, ReservedBit: %v\n, Ignore: %v\n, UsernameFlag: %v\n, PasswordFlag: %v\n",
+		pk.Connect, pk.Properties, pk.Payload, pk.ReasonCodes, pk.Filters, pk.TopicName, pk.Origin, pk.FixedHeader, pk.Created, pk.Expiry, pk.Mods, pk.PacketID, pk.ProtocolVersion, pk.SessionPresent, pk.ReasonCode, pk.ReservedBit, pk.Ignore, pk.Connect.UsernameFlag, pk.Connect.PasswordFlag)
 	// if cl.ID == nil {
 	// 	cl.ID = []byte("new_id")
 	// }
