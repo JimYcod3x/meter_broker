@@ -31,31 +31,73 @@ func (h *hooks) OnPacketRead(cl *mqtt.Client, pk packets.Packet) (packets.Packet
 	fmt.Println(cl.ID, pk.Connect.Username, pk.Connect.Password)
 	newPassword := "new_password"
 	pk.Connect.Password = []byte(newPassword)
+	fmt.Println(cl.ID, pk.Connect.Username, pk.Connect.Password)
 	return pk, nil
 }
 
 func (h *hooks) ID() string {
-	return "myHook"
+	return "modified"
 }
+
+func (h *hooks) Init(config any) error {
+	if config != nil {
+		return errTestHook
+	}
+	return nil
+}
+
 func (h *hooks) Provides(b byte) bool {
 	return true
 }
 
-func (h *hooks) Init(config interface{}) error {
-	fmt.Println("init hook")
+func (h *hooks) Stop() error {
+	if h.fail {
+		return errTestHook
+	}
+
 	return nil
 }
 
-func (h *hooks) OnStarted() {
-	fmt.Println("client connected")
+func (h *hooks) OnConnect(cl *mqtt.Client, pk packets.Packet) error {
+	if h.fail {
+		return errTestHook
+	}
+
+	return nil
 }
 
 func (h *hooks) OnConnectAuthenticate(cl *mqtt.Client, pk packets.Packet) bool {
-	fmt.Println("client test connected")
 	return true
 }
 
-func (h *hooks) OnACLCheck(cl *mqtt.Client, topic string, write bool) bool     { return true }
+func (h *hooks) OnACLCheck(cl *mqtt.Client, topic string, write bool) bool {
+	return true
+}
+
+func (h *hooks) OnPublish(cl *mqtt.Client, pk packets.Packet) (packets.Packet, error) {
+	if h.fail {
+		if h.err != nil {
+			return pk, h.err
+		}
+
+		return pk, errTestHook
+	}
+
+	return pk, nil
+}
+
+
+func (h *hooks) OnAuthPacket(cl *mqtt.Client, pk packets.Packet) (packets.Packet, error) {
+	if h.fail {
+		if h.err != nil {
+			return pk, h.err
+		}
+
+		return pk, errTestHook
+	}
+
+	return pk, nil
+}
 
 func main() {
 	sigs := make(chan os.Signal, 1)
