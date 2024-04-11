@@ -28,6 +28,7 @@ func (h *hooks) OnPacketRead(cl *mqtt.Client, pk packets.Packet) (packets.Packet
 
 		return pk, errTestHook
 	}
+	fmt.Println(cl.ID, pk.Connect.Username, pk.Connect.Password)
 	newPassword := "new_password"
 	pk.Connect.Password = []byte(newPassword)
 	return pk, nil
