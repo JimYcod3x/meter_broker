@@ -31,7 +31,7 @@ func (h *hooks) OnPacketRead(cl *mqtt.Client, pk packets.Packet) (packets.Packet
 
 		return pk, errTestHook
 	}
-	fmt.Println(cl.Properties, pk.Connect.Username, pk.Connect.Password)
+	fmt.Println("this is package info: ", cl.Properties, pk.Connect.Username, pk.Connect.Password)
 	// if cl.ID == nil {
 	// 	cl.ID = []byte("new_id")
 	// }
