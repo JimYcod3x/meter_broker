@@ -31,13 +31,10 @@ func (h *hooks) OnPacketRead(cl *mqtt.Client, pk packets.Packet) (packets.Packet
 
 		return pk, errTestHook
 	}
-	fmt.Println(cl.ID, pk.Connect.Username, pk.Connect.Password)
-	// if pk.Connect.Password == nil {
-	// 	newPassword := "new_password"
-	// 	pk.Connect.Password = []byte(newPassword)
+	fmt.Println(cl.Properties, pk.Connect.Username, pk.Connect.Password)
+	// if cl.ID == nil {
+	// 	cl.ID = []byte("new_id")
 	// }
-	
-	// fmt.Println(cl.ID, pk.Connect.Username, pk.Connect.Password)
 	return pk, nil
 }
 
