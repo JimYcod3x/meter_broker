@@ -11,7 +11,10 @@ import (
 	"github.com/mochi-mqtt/server/v2/listeners"
 	"github.com/mochi-mqtt/server/v2/packets"
 )
-
+const (
+	testSub = "J200002335C2S"
+	testPub = "J200002335S2C"
+)
 var errTestHook = errors.New("error")
 
 type hooks struct {
@@ -99,6 +102,10 @@ func (h *hooks) OnAuthPacket(cl *mqtt.Client, pk packets.Packet) (packets.Packet
 	return pk, nil
 }
 
+func (h *hooks) OnSubscribe(cl *mqtt.Client, pk packets.Packet) packets.Packet {
+	return pk
+}
+
 func main() {
 	sigs := make(chan os.Signal, 1)
 	done := make(chan bool, 1)
@@ -123,6 +130,13 @@ func main() {
 		ID: "t2",
 		Address: ":1883",
 	})
+
+	callbackFn := func(cl *mqtt.Client, sub packets.Subscription, pk packets.Packet) {
+		server.Log.Info("inline client received message from subscription", "client", cl.ID, "subscriptionId", sub.Identifier, "topic", pk.TopicName, "payload", string(pk.Payload))
+	}
+
+	server.Subscribe(testSub, 1, callbackFn)
+	
 	err = server.AddListener(tcp)
 	if err != nil {
 		log.Fatal(err)
