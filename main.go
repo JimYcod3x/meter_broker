@@ -26,9 +26,10 @@ type hooks struct {
 func (h *hooks) OnPacketRead(cl *mqtt.Client, pk packets.Packet) (packets.Packet, error) {
 	if h.fail {
 		if h.err != nil {
+			fmt.Println("fail connect with error")
 			return pk, h.err
 		}
-
+		fmt.Println("fail connect without error")
 		return pk, errTestHook
 	}
 	fmt.Println("this is package info: ", cl.Properties, pk.Connect.Username, pk.Connect.Password)
