@@ -50,6 +50,7 @@ func main() {
 		server.Log.Info("inline client received message from subscription", "client", cl.ID, "subscriptionId", sub.Identifier, "topic", pk.TopicName, "payload", string(pk.Payload))
 		fmt.Println("payload type is", reflect.TypeOf(pk.Payload))
 		fmt.Println("payload is", hex.EncodeToString([]byte(pk.Payload)))
+		fmt.Println("payload is", pk.Payload)
 	})
 
 	if err != nil {
