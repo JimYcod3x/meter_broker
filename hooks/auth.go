@@ -3,7 +3,6 @@ package hooks
 import (
 	"errors"
 	"fmt"
-	"reflect"
 
 	mqtt "github.com/mochi-mqtt/server/v2"
 	"github.com/mochi-mqtt/server/v2/packets"
