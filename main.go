@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"fmt"
 	"log"
 	"meter_broker/hooks"
@@ -48,7 +49,7 @@ func main() {
 	err = server.Subscribe(testSub, 1, func(cl *mqtt.Client, sub packets.Subscription, pk packets.Packet) {
 		server.Log.Info("inline client received message from subscription", "client", cl.ID, "subscriptionId", sub.Identifier, "topic", pk.TopicName, "payload", string(pk.Payload))
 		fmt.Println("payload type is", reflect.TypeOf(pk.Payload))
-		fmt.Println("payload is", pk.Payload)
+		fmt.Println("payload is", hex.EncodeToString([]byte(pk.Payload)))
 	})
 
 	if err != nil {
