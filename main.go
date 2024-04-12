@@ -1,9 +1,6 @@
 package main
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
-	"encoding/hex"
 	"fmt"
 	"log"
 	"meter_broker/hooks"
