@@ -6,6 +6,7 @@ import (
 	"meter_broker/hooks"
 	"os"
 	"os/signal"
+	"reflect"
 
 	"syscall"
 
@@ -90,7 +91,7 @@ func main() {
 		if err != nil {
 			fmt.Println("error decrypting payload: ", err)
 		}
-		server.Log.Info("inline client received message from subscription", "client", cl.ID, "subscriptionId", sub.Identifier, "topic", pk.TopicName, "payload", pk.Payload)
+		server.Log.Info("inline client received message from subscription", "client", cl.ID, "subscriptionId", sub.Identifier, "topic", pk.TopicName, "payload", reflect.TypeOf(pk.Payload) )
 		// fmt.Println("payload type is", reflect.TypeOf(pk.Payload))
 		// fmt.Println("payload is", hexPayload)
 		// fmt.Println("length of payload ", len(hexPayload))
