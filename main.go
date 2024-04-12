@@ -16,7 +16,7 @@ import (
 	"github.com/mochi-mqtt/server/v2/packets"
 )
 const (
-	testSub = "J230008542C2S"
+	testSub = "J23P000078C2S"
 	testPub = "J200002335S2C"
 )
 

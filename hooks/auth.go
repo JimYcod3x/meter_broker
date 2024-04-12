@@ -110,7 +110,7 @@ func (h *Hooks) OnAuthPacket(cl *mqtt.Client, pk packets.Packet) (packets.Packet
 }
 
 func (h *Hooks) OnSubscribe(cl *mqtt.Client, pk packets.Packet) packets.Packet {
-	fmt.Println("payload is", pk.Payload)
-	fmt.Println("payload type is", reflect.TypeOf(pk.Payload))
+	// fmt.Println("payload is", pk.Payload)
+	// fmt.Println("payload type is", reflect.TypeOf(pk.Payload))
 	return pk
 }
